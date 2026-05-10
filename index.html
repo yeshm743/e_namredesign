@@ -195,7 +195,7 @@
         </main>
 
         <aside id="right-panel" class="w-64 bg-white border-l border-gray-300 flex flex-col shrink-0 shadow-xl transition-all duration-300 z-30 relative">
-            <button id="min-btn" class="absolute top-2 right-2 p-1 hover:bg-gray-100 rounded text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg></button>
+            <button id="min-btn" class="absolute top-2 right-2 p-1 hover:bg-gray-100 rounded text-gray-400 z-20"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg></button>
             
             <div class="p-4 flex flex-col gap-6 pt-10 overflow-y-auto custom-scroll">
                 
@@ -204,8 +204,18 @@
                     <div id="trader-list" class="space-y-2"></div>
                 </div>
                 
-                <div class="h-24 bg-blue-50 border-2 border-dashed border-blue-200 rounded-lg flex items-center justify-center text-[10px] font-black text-blue-400 uppercase text-center p-2">
-                    Ad Space <br> (Promoting Website)
+                <div class="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-gray-100">
+                    <img src="image_f8f93a.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Reach More Traders">
+                    <img src="image_f8f8fb.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Call Center Info">
+                    <img src="image_f8f8dc.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="eNAM Process Flow">
+                    <img src="image_f8f8bf.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Mobile App">
+                    
+                    <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
+                        <span class="ad-dot w-2 h-2 rounded-full bg-teal-600 shadow border border-white"></span>
+                        <span class="ad-dot w-2 h-2 rounded-full bg-gray-300 shadow border border-white"></span>
+                        <span class="ad-dot w-2 h-2 rounded-full bg-gray-300 shadow border border-white"></span>
+                        <span class="ad-dot w-2 h-2 rounded-full bg-gray-300 shadow border border-white"></span>
+                    </div>
                 </div>
                 
                 <div>
@@ -328,6 +338,23 @@
                 panel.classList.toggle('border-l');
                 panel.classList.toggle('overflow-hidden');
             });
+
+            // Carousel Logic
+            const slides = document.querySelectorAll('.ad-slide');
+            const dots = document.querySelectorAll('.ad-dot');
+            let currentSlide = 0;
+
+            if(slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+                    dots[currentSlide].classList.replace('bg-teal-600', 'bg-gray-300');
+                    
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    
+                    slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+                    dots[currentSlide].classList.replace('bg-gray-300', 'bg-teal-600');
+                }, 4000); // Change image every 4 seconds
+            }
 
             // Init Setup
             updateSidebar();
