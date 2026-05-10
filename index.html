@@ -15,12 +15,10 @@
         .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
         
-        /* Accordion Caret Rotation */
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] > summary svg.caret { transform: rotate(180deg); }
         
-        /* Sidebar Sub-link Styling */
         .sub-link { display: block; padding: 8px 24px; font-size: 10px; color: #94a3b8; cursor: pointer; transition: 0.2s; }
         .sub-link:hover { color: #2dd4bf; background-color: #0f172a; }
         .nav-category { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: 0.2s; border-bottom: 1px solid #1e293b; }
@@ -31,14 +29,17 @@
 
     <header class="bg-white border-b border-gray-300 px-4 py-2 flex justify-between items-center shadow-sm z-50 shrink-0">
         <div class="flex items-center gap-4">
+            <button id="expand-left-btn" class="hidden text-gray-500 hover:text-teal-800 transition p-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
             <div class="flex items-center gap-2 border-r pr-4 border-gray-300">
                 <div class="w-7 h-7 bg-teal-900 text-white rounded flex items-center justify-center text-[10px] font-bold">GOI</div>
                 <div class="text-[10px] font-bold text-gray-500 leading-tight uppercase">Ministry of Agriculture</div>
             </div>
-            <div class="text-xl font-black text-green-700 tracking-tighter uppercase">e-NAM</div>
+            <div class="text-xl font-black text-green-700 tracking-tighter uppercase hidden sm:block">e-NAM</div>
         </div>
         <div class="flex items-center gap-4 text-xs font-bold">
-            <div class="text-blue-600">Helpline: 1800-270-244</div>
+            <div class="text-blue-600 hidden sm:block">Helpline: 1800-270-244</div>
             <div class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200 cursor-pointer hover:bg-gray-200 transition">
                 <div class="w-5 h-5 bg-gray-400 rounded-full"></div>
                 <span>Login/Register</span>
@@ -46,82 +47,65 @@
         </div>
     </header>
 
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1 overflow-hidden relative">
         
-        <nav class="w-56 bg-slate-900 text-slate-300 flex flex-col shrink-0 z-40 overflow-y-auto custom-scroll border-r border-slate-800">
-            <div class="p-4 bg-teal-900 text-white font-black text-[11px] uppercase tracking-widest flex items-center gap-2">
-                <span>🏠</span> HOME
+        <nav id="left-sidebar" class="w-56 bg-slate-900 text-slate-300 flex flex-col shrink-0 z-40 overflow-y-auto custom-scroll border-r border-slate-800 transition-all duration-300 relative">
+            
+            <div class="p-4 bg-teal-900 text-white font-black text-[11px] uppercase tracking-widest flex justify-between items-center sticky top-0 z-10">
+                <div class="flex items-center gap-2"><span>🏠</span> HOME</div>
+                <button id="collapse-left-btn" class="p-1 hover:bg-teal-800 rounded text-teal-100 transition" title="Minimize Menu">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
             </div>
 
             <details class="group">
                 <summary class="nav-category">About <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">Vision</a>
-                    <a class="sub-link">Mission Goal</a>
-                    <a class="sub-link">Blog</a>
-                    <a class="sub-link">Contact Us</a>
-                    <a class="sub-link">Success Story</a>
-                    <a class="sub-link">Event</a>
-                    <a class="sub-link">Gallery</a>
+                    <a class="sub-link">Vision</a><a class="sub-link">Mission Goal</a><a class="sub-link">Blog</a>
+                    <a class="sub-link">Contact Us</a><a class="sub-link">Success Story</a><a class="sub-link">Event</a><a class="sub-link">Gallery</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">e-NAM Logistics <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">National, Seeds, Co-org</a>
-                    <a class="sub-link">ENWR Trade</a>
-                    <a class="sub-link">Kisan Rath</a>
-                    <a class="sub-link">e-NAM Miscellaneous</a>
+                    <a class="sub-link">National, Seeds, Co-org</a><a class="sub-link">ENWR Trade</a><a class="sub-link">Kisan Rath</a><a class="sub-link">e-NAM Miscellaneous</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">Work with e-NAM <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">FPO</a>
-                    <a class="sub-link">Co-Ops</a>
-                    <a class="sub-link">POP</a>
-                    <a class="sub-link">Work with Us</a>
+                    <a class="sub-link">FPO</a><a class="sub-link">Co-Ops</a><a class="sub-link">POP</a><a class="sub-link">Work with Us</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">e-NAM Stats <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">Mandi</a>
-                    <a class="sub-link">Stakeholder Data</a>
-                    <a class="sub-link">Aspirational Districts</a>
-                    <a class="sub-link">List of Commodities</a>
+                    <a class="sub-link">Mandi</a><a class="sub-link">Stakeholder Data</a><a class="sub-link">Aspirational Districts</a><a class="sub-link">List of Commodities</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">Govt Schemes & Licenses <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">State Unified Licenses</a>
-                    <a class="sub-link">Schemes for Trading</a>
-                    <a class="sub-link">Schemes for Farmers</a>
+                    <a class="sub-link">State Unified Licenses</a><a class="sub-link">Schemes for Trading</a><a class="sub-link">Schemes for Farmers</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">Trade <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">Phool Intercity</a>
-                    <a class="sub-link">Advance Demand/Supply</a>
-                    <a class="sub-link">Market Prices</a>
-                    <a class="sub-link">Live Trade</a>
-                    <a class="sub-link">Directory</a>
+                    <a class="sub-link">Phool Intercity</a><a class="sub-link">Advance Demand/Supply</a><a class="sub-link">Market Prices</a>
+                    <a class="sub-link">Live Trade</a><a class="sub-link">Directory</a>
                 </div>
             </details>
 
             <details class="group">
                 <summary class="nav-category">Helpline & Training <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></summary>
                 <div class="bg-slate-950 pb-2 pt-1">
-                    <a class="sub-link">E-Learning Videos</a>
-                    <a class="sub-link">FAQs</a>
-                    <a class="sub-link">Helpline Number</a>
+                    <a class="sub-link">E-Learning Videos</a><a class="sub-link">FAQs</a><a class="sub-link">Helpline Number</a>
                 </div>
             </details>
         </nav>
@@ -134,7 +118,6 @@
         </aside>
 
         <main class="flex-1 flex flex-col gap-4 p-4 overflow-y-auto custom-scroll bg-gray-50 relative">
-            
             <div class="bg-white border border-gray-300 rounded-xl p-4 flex justify-between items-center shadow-sm">
                 <div class="flex flex-col">
                     <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Active Commodity</label>
@@ -184,11 +167,9 @@
                     <div class="text-[11px] space-y-2 font-bold text-gray-600 flex-1 overflow-y-auto custom-scroll pr-2 mt-1">
                         <div class="flex justify-between border-b border-gray-50 pb-1"><span>TND-901-FLR (200kg)</span><span class="text-teal-700 cursor-pointer">View</span></div>
                         <div class="flex justify-between border-b border-gray-50 pb-1"><span>TND-905-FLR (550kg)</span><span class="text-teal-700 cursor-pointer">View</span></div>
-                        <div class="flex justify-between"><span>TND-912-FLR (100kg)</span><span class="text-teal-700 cursor-pointer">View</span></div>
                     </div>
                 </div>
             </div>
-
             <div class="bg-gray-200 p-4 rounded-xl text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center border border-gray-300 shadow-inner mt-auto">
                 Policies and Schemes related to Commodity
             </div>
@@ -198,17 +179,16 @@
             <button id="min-btn" class="absolute top-2 right-2 p-1 hover:bg-gray-100 rounded text-gray-400 z-20"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg></button>
             
             <div class="p-4 flex flex-col gap-6 pt-10 overflow-y-auto custom-scroll">
-                
                 <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 shadow-sm">
                     <h4 class="text-[9px] font-black text-gray-400 uppercase mb-3">Registered Traders</h4>
                     <div id="trader-list" class="space-y-2"></div>
                 </div>
                 
                 <div class="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-gray-100">
-                    <img src="image_f8f93a.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Reach More Traders">
-                    <img src="image_f8f8fb.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Call Center Info">
-                    <img src="image_f8f8dc.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="eNAM Process Flow">
-                    <img src="image_f8f8bf.jpg" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Mobile App">
+                    <img src="https://images.unsplash.com/photo-1592982537447-6f2334208fbc?auto=format&fit=crop&w=400&q=80" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Reach More Traders">
+                    <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=400&q=80" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Call Center Info">
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=400&q=80" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="eNAM Process Flow">
+                    <img src="https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=400&q=80" class="ad-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Mobile App">
                     
                     <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
                         <span class="ad-dot w-2 h-2 rounded-full bg-teal-600 shadow border border-white"></span>
@@ -231,7 +211,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Data Setup
+            // --- LEFT SIDEBAR TOGGLE LOGIC ---
+            const leftSidebar = document.getElementById('left-sidebar');
+            const collapseLeftBtn = document.getElementById('collapse-left-btn');
+            const expandLeftBtn = document.getElementById('expand-left-btn');
+
+            collapseLeftBtn.addEventListener('click', () => {
+                leftSidebar.classList.replace('w-56', 'w-0');
+                leftSidebar.classList.add('overflow-hidden');
+                leftSidebar.classList.remove('border-r');
+                expandLeftBtn.classList.remove('hidden');
+                setTimeout(() => { priceChart.resize(); map.invalidateSize(); }, 300);
+            });
+
+            expandLeftBtn.addEventListener('click', () => {
+                leftSidebar.classList.replace('w-0', 'w-56');
+                leftSidebar.classList.remove('overflow-hidden');
+                leftSidebar.classList.add('border-r');
+                expandLeftBtn.classList.add('hidden');
+                setTimeout(() => { priceChart.resize(); map.invalidateSize(); }, 300);
+            });
+
+
             const hierarchy = {
                 "Maharashtra": { lat: 19.75, lng: 75.71, dists: { "Pune": ["Pune Mandi", "Baramati"], "Nashik": ["Lasalgaon"] } },
                 "Karnataka": { lat: 15.31, lng: 75.71, dists: { "Bengaluru": ["Yeshwantpur"], "Mysuru": ["Mysuru Central"] } },
@@ -239,131 +240,75 @@
                 "Madhya Pradesh": { lat: 22.97, lng: 78.65, dists: { "Indore": ["Indore Mandi"], "Bhopal": ["Bhopal APMC"] } }
             };
 
-            const chartData = {
-                "3days": [620, 640, 650],
-                "week": [580, 610, 590, 630, 650, 640, 650],
-                "month": [500, 520, 480, 550, 590, 610, 650, 630, 640, 650, 660, 650]
-            };
-
+            const chartData = { "3days": [620, 640, 650], "week": [580, 610, 590, 630, 650, 640, 650], "month": [500, 520, 480, 550, 590, 610, 650, 630, 640, 650, 660, 650] };
             const traders = ["Arjun K. (Pune)", "Suresh G. (Bengaluru)", "Vikram P. (Surat)"];
 
-            // Element Refs
             const sidebar = document.getElementById('sidebar-list');
             const btnGraph = document.getElementById('toggle-graph');
             const btnMap = document.getElementById('toggle-map');
             const chartArea = document.getElementById('chart-area');
             const mapArea = document.getElementById('map-area');
 
-            // Initialize Chart.js
             let priceChart = new Chart(document.getElementById('mainChart').getContext('2d'), {
                 type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3'],
-                    datasets: [{
-                        data: chartData['3days'],
-                        borderColor: '#115e59', // teal-800
-                        backgroundColor: 'rgba(17, 94, 89, 0.05)',
-                        fill: true, tension: 0.4, borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#115e59'
-                    }]
-                },
-                options: { 
-                    responsive: true, maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
-                    scales: { y: { grid: { color: '#f3f4f6' } }, x: { grid: { display: false } } }
-                }
+                data: { labels: ['Day 1', 'Day 2', 'Day 3'], datasets: [{ data: chartData['3days'], borderColor: '#115e59', backgroundColor: 'rgba(17, 94, 89, 0.05)', fill: true, tension: 0.4, borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#115e59' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#f3f4f6' } }, x: { grid: { display: false } } } }
             });
 
-            // Initialize Leaflet Map
             const map = L.map('map-area', {zoomControl: false}).setView([22.5937, 78.9629], 5);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-            // Populate Inner Left Sidebar
             function updateSidebar() {
                 sidebar.innerHTML = '';
                 Object.entries(hierarchy).forEach(([state, data]) => {
                     const det = document.createElement('details');
                     det.className = "group border-b border-gray-300 bg-gray-50";
-                    det.innerHTML = `
-                        <summary class="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-200">
-                            <span class="text-[10px] font-black text-gray-700 uppercase tracking-wider">${state}</span>
-                            <svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="4"></path></svg>
-                        </summary>
-                        <div class="pl-6 pb-2 text-[10px] font-bold text-gray-500 bg-gray-100 shadow-inner">
-                            ${Object.keys(data.dists).map(d => `<div class="py-1.5 hover:text-teal-800 cursor-pointer" onclick="zoomTo('${state}')">${d} ▾</div>`).join('')}
-                        </div>`;
+                    det.innerHTML = `<summary class="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-200"><span class="text-[10px] font-black text-gray-700 uppercase tracking-wider">${state}</span><svg class="w-3 h-3 caret transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="4"></path></svg></summary><div class="pl-6 pb-2 text-[10px] font-bold text-gray-500 bg-gray-100 shadow-inner">${Object.keys(data.dists).map(d => `<div class="py-1.5 hover:text-teal-800 cursor-pointer" onclick="zoomTo('${state}')">${d} ▾</div>`).join('')}</div>`;
                     sidebar.appendChild(det);
                 });
             }
 
-            // Map Zoom function
-            window.zoomTo = (state) => {
-                const s = hierarchy[state];
-                map.flyTo([s.lat, s.lng], 7);
-                btnMap.click(); // Auto-switch to map view when clicking a location
-            };
+            window.zoomTo = (state) => { const s = hierarchy[state]; map.flyTo([s.lat, s.lng], 7); btnMap.click(); };
 
-            // Timeframe toggle logic
             window.changeTimeframe = (tf) => {
-                document.querySelectorAll('.tf-btn').forEach(b => {
-                    b.classList.remove('bg-teal-800', 'text-white');
-                    b.classList.add('bg-white', 'text-gray-500', 'border-gray-300');
-                });
-                event.target.classList.add('bg-teal-800', 'text-white');
-                event.target.classList.remove('bg-white', 'text-gray-500', 'border-gray-300');
-                
-                priceChart.data.labels = chartData[tf].map((_, i) => tf === 'month' ? `W${Math.floor(i/3)+1}` : `Day ${i+1}`);
-                priceChart.data.datasets[0].data = chartData[tf];
-                priceChart.update();
+                document.querySelectorAll('.tf-btn').forEach(b => { b.classList.remove('bg-teal-800', 'text-white'); b.classList.add('bg-white', 'text-gray-500', 'border-gray-300'); });
+                event.target.classList.add('bg-teal-800', 'text-white'); event.target.classList.remove('bg-white', 'text-gray-500', 'border-gray-300');
+                priceChart.data.labels = chartData[tf].map((_, i) => tf === 'month' ? `W${Math.floor(i/3)+1}` : `Day ${i+1}`); priceChart.data.datasets[0].data = chartData[tf]; priceChart.update();
             };
 
-            // View Toggles
             btnGraph.addEventListener('click', () => {
                 btnGraph.className = "px-4 py-1.5 text-[10px] font-black rounded-md bg-white shadow text-teal-800 uppercase tracking-tight transition-all";
                 btnMap.className = "px-4 py-1.5 text-[10px] font-black rounded-md text-gray-500 hover:text-gray-700 uppercase tracking-tight transition-all";
-                chartArea.classList.remove('hidden'); mapArea.classList.add('hidden');
-                setTimeout(() => priceChart.resize(), 50); // Fix rendering bug
+                chartArea.classList.remove('hidden'); mapArea.classList.add('hidden'); setTimeout(() => priceChart.resize(), 50);
             });
 
             btnMap.addEventListener('click', () => {
                 btnMap.className = "px-4 py-1.5 text-[10px] font-black rounded-md bg-white shadow text-teal-800 uppercase tracking-tight transition-all";
                 btnGraph.className = "px-4 py-1.5 text-[10px] font-black rounded-md text-gray-500 hover:text-gray-700 uppercase tracking-tight transition-all";
-                mapArea.classList.remove('hidden'); chartArea.classList.add('hidden');
-                setTimeout(() => map.invalidateSize(), 50); // Fix rendering bug
+                mapArea.classList.remove('hidden'); chartArea.classList.add('hidden'); setTimeout(() => map.invalidateSize(), 50);
             });
 
-            // Right Panel Collapse
             document.getElementById('min-btn').addEventListener('click', () => {
                 const panel = document.getElementById('right-panel');
-                panel.classList.toggle('w-0');
-                panel.classList.toggle('border-l');
-                panel.classList.toggle('overflow-hidden');
+                panel.classList.toggle('w-0'); panel.classList.toggle('border-l'); panel.classList.toggle('overflow-hidden');
             });
 
-            // Carousel Logic
             const slides = document.querySelectorAll('.ad-slide');
             const dots = document.querySelectorAll('.ad-dot');
             let currentSlide = 0;
-
             if(slides.length > 0) {
                 setInterval(() => {
                     slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
                     dots[currentSlide].classList.replace('bg-teal-600', 'bg-gray-300');
-                    
                     currentSlide = (currentSlide + 1) % slides.length;
-                    
                     slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
                     dots[currentSlide].classList.replace('bg-gray-300', 'bg-teal-600');
-                }, 4000); // Change image every 4 seconds
+                }, 4000);
             }
 
-            // Init Setup
             updateSidebar();
-            
-            // Inject mock traders
             const tList = document.getElementById('trader-list');
             traders.forEach(t => tList.innerHTML += `<div class="bg-white p-2 border border-gray-100 rounded text-[10px] font-bold flex justify-between shadow-sm"><span>${t}</span><span class="text-green-500">Active</span></div>`);
-            
-            // Draw Map Nodes
             Object.values(hierarchy).forEach(s => L.circle([s.lat, s.lng], { color: '#0f766e', opacity: 0.5, fillOpacity: 0.3, radius: 55000 }).addTo(map));
         });
     </script>
