@@ -85,4 +85,294 @@
                 <div class="p-3 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-xl z-20">
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-semibold text-gray-600">Filters:</span>
-                        <select class="bg-white border border-gray-30
+                        <select class="bg-white border border-gray-300 text-gray-700 text-sm rounded-md px-2 py-1 shadow-sm focus:outline-none">
+                            <option>3 days</option>
+                            <option>1 week</option>
+                            <option>1 month</option>
+                        </select>
+                    </div>
+                    <span id="trend-indicator" class="text-sm font-bold text-green-700">▲ Trending Up</span>
+                </div>
+                
+                <div class="flex-1 relative overflow-hidden rounded-b-xl bg-gray-50">
+                    <div id="chart-wrapper" class="absolute inset-0 z-10 w-full h-full p-4 flex flex-col">
+                        <div class="relative w-full h-full">
+                            <canvas id="mainChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="mainMap" class="absolute inset-0 z-0 hidden w-full h-full"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm flex flex-col justify-center">
+                    <h3 class="text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">Today's Highest & Lowest Price</h3>
+                    <div class="flex justify-around items-center">
+                        <div class="text-center">
+                            <p class="text-gray-500 text-sm font-medium">Highest</p>
+                            <p class="text-3xl font-bold text-gray-900">₹650 <span class="text-green-600 text-lg">↑</span></p>
+                        </div>
+                        <div class="w-px h-10 bg-gray-300"></div>
+                        <div class="text-center">
+                            <p class="text-gray-500 text-sm font-medium">Lowest</p>
+                            <p class="text-3xl font-bold text-gray-900">₹420 <span class="text-green-600 text-lg">↑</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm flex flex-col h-48">
+                    <h3 class="text-center font-bold text-gray-800 mb-2 pb-2 border-b border-gray-200">Available Tenders</h3>
+                    <div class="overflow-y-auto custom-scroll flex-1">
+                        <table class="w-full text-sm text-left">
+                            <tbody>
+                                <tr class="border-b border-gray-100"><td class="py-2 font-semibold text-blue-700">TND-892</td><td class="py-2">200 kg</td><td class="py-2 text-gray-500">Ends Today</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-2 font-semibold text-blue-700">TND-893</td><td class="py-2">150 kg</td><td class="py-2 text-gray-500">Ends Oct 28</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-2 font-semibold text-blue-700">TND-894</td><td class="py-2">500 kg</td><td class="py-2 text-gray-500">Ends Oct 30</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="restore-panel-btn" class="hidden absolute top-4 right-4 z-50 bg-gray-800 hover:bg-gray-900 text-white p-2 rounded shadow-lg flex items-center gap-2 text-sm font-bold transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                Open Info Panel
+            </button>
+        </main>
+
+        <aside id="right-panel" class="w-80 bg-white border-l border-gray-300 flex flex-col shrink-0 shadow-lg transition-all duration-300 relative z-10">
+            <div class="absolute top-2 right-2 z-10">
+                <button id="minimize-btn" class="p-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded border border-gray-300 transition" title="Minimize Panel">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+
+            <div class="p-4 flex-1 flex flex-col gap-4 overflow-y-auto custom-scroll pt-10">
+                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-3 border-b border-gray-200 pb-2">Traders for <span id="trader-context">Shevanti</span></h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center bg-white p-2 border border-gray-200 rounded text-xs"><div class="flex items-center gap-2"><div class="w-6 h-6 bg-gray-300 rounded-full overflow-hidden"><img src="https://ui-avatars.com/api/?name=A+Khan&background=random&size=24"></div><div><p class="font-bold">A. Khan</p><p class="text-gray-500">Pune Mandi</p></div></div><span class="font-bold text-green-700">Verified</span></div>
+                        <div class="flex justify-between items-center bg-white p-2 border border-gray-200 rounded text-xs"><div class="flex items-center gap-2"><div class="w-6 h-6 bg-gray-300 rounded-full overflow-hidden"><img src="https://ui-avatars.com/api/?name=S+Gupta&background=random&size=24"></div><div><p class="font-bold">S. Gupta</p><p class="text-gray-500">Bengaluru</p></div></div><span class="font-bold text-green-700">Verified</span></div>
+                        <div class="flex justify-between items-center bg-white p-2 border border-gray-200 rounded text-xs"><div class="flex items-center gap-2"><div class="w-6 h-6 bg-gray-300 rounded-full overflow-hidden"><img src="https://ui-avatars.com/api/?name=R+Patil&background=random&size=24"></div><div><p class="font-bold">R. Patil</p><p class="text-gray-500">Nashik</p></div></div><span class="font-bold text-green-700">Verified</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm flex-1">
+                    <h3 class="font-bold text-gray-800 text-sm mb-3 border-b border-gray-200 pb-2">Agri-Market News</h3>
+                    <div class="space-y-3">
+                        <div class="text-xs"><p class="font-bold text-gray-800 line-clamp-2 hover:text-blue-600 cursor-pointer">Monsoon delays impact Shevanti harvest in western regions.</p><p class="text-gray-500 mt-1">2 hours ago</p></div>
+                        <div class="text-xs"><p class="font-bold text-gray-800 line-clamp-2 hover:text-blue-600 cursor-pointer">Government announces new subsidies for floriculture farmers.</p><p class="text-gray-500 mt-1">1 day ago</p></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const locationHierarchy = {
+                "Maharashtra": {
+                    "Pune": ["Pune APMC", "Baramati APMC", "Shirur APMC"],
+                    "Nashik": ["Nashik APMC", "Lasalgaon APMC", "Pimpalgaon APMC"],
+                    "Nagpur": ["Nagpur APMC", "Kalamna APMC"]
+                },
+                "Karnataka": {
+                    "Bengaluru": ["Yeshwantpur APMC", "Dasarahalli APMC"],
+                    "Mysuru": ["Mysuru APMC", "Nanjangud APMC"]
+                },
+                "Gujarat": {
+                    "Ahmedabad": ["Ahmedabad APMC"],
+                    "Surat": ["Surat APMC", "Bardoli APMC"]
+                }
+            };
+
+            const listCommodities = ["Shevanti (Flower)", "Wheat", "Soyabean", "Cotton", "Turmeric", "Onion", "Tomato"];
+
+            const sidebarListContainer = document.getElementById('sidebar-filter-list');
+            const sidebarTitle = document.getElementById('sidebar-filter-title');
+            const primarySubtitle = document.getElementById('primary-subtitle');
+
+            const caretSVG = `<svg class="w-4 h-4 caret transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`;
+
+            function renderLocationTree() {
+                sidebarListContainer.innerHTML = '';
+                
+                // THE FIX IS HERE: changed 'for' to 'of'
+                for (const [state, districts] of Object.entries(locationHierarchy)) {
+                    const stateDetails = document.createElement('details');
+                    stateDetails.className = "mb-1 border border-gray-200 rounded-md bg-gray-50";
+                    
+                    const stateSummary = document.createElement('summary');
+                    stateSummary.className = "cursor-pointer p-3 font-bold text-gray-700 hover:bg-gray-100 rounded-md flex justify-between items-center";
+                    stateSummary.innerHTML = `<span>${state}</span> ${caretSVG}`;
+                    stateDetails.appendChild(stateSummary);
+
+                    const districtContainer = document.createElement('div');
+                    districtContainer.className = "pl-4 pr-2 pb-2 space-y-1";
+
+                    for (const [district, mandis] of Object.entries(districts)) {
+                        const distDetails = document.createElement('details');
+                        distDetails.className = "mt-1";
+                        
+                        const distSummary = document.createElement('summary');
+                        distSummary.className = "cursor-pointer p-2 text-sm font-semibold text-gray-600 hover:bg-gray-200 rounded flex justify-between items-center";
+                        distSummary.innerHTML = `<span>${district}</span> ${caretSVG}`;
+                        distDetails.appendChild(distSummary);
+
+                        const mandiContainer = document.createElement('div');
+                        mandiContainer.className = "pl-4 py-1 space-y-1 border-l-2 border-gray-200 ml-2 mt-1";
+
+                        mandis.forEach(mandi => {
+                            const mandiItem = document.createElement('div');
+                            mandiItem.className = "cursor-pointer p-1.5 text-xs text-gray-600 hover:text-green-700 hover:bg-green-50 rounded transition";
+                            mandiItem.textContent = mandi;
+                            mandiItem.addEventListener('click', () => {
+                                document.querySelectorAll('.mandi-selected').forEach(el => el.classList.remove('mandi-selected', 'bg-green-100', 'text-green-800', 'font-bold'));
+                                mandiItem.classList.add('mandi-selected', 'bg-green-100', 'text-green-800', 'font-bold');
+                                primarySubtitle.textContent = `Commodity View - ${mandi}, ${district}, ${state}`;
+                            });
+                            mandiContainer.appendChild(mandiItem);
+                        });
+
+                        distDetails.appendChild(mandiContainer);
+                        districtContainer.appendChild(distDetails);
+                    }
+                    stateDetails.appendChild(districtContainer);
+                    sidebarListContainer.appendChild(stateDetails);
+                }
+            }
+
+            function renderFlatList(dataArray) {
+                sidebarListContainer.innerHTML = '';
+                dataArray.forEach((item, index) => {
+                    const li = document.createElement('div');
+                    li.textContent = item;
+                    li.className = `p-3 rounded-md cursor-pointer transition text-sm ${index === 0 ? 'bg-white shadow text-green-800 border border-gray-300 font-bold' : 'text-gray-600 hover:bg-gray-200 border border-transparent'}`;
+                    sidebarListContainer.appendChild(li);
+                });
+            }
+
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [{
+                        label: 'Price (INR)',
+                        data: [350, 380, 410, 480, 450, 520, 560, 530, 600, 650],
+                        borderColor: '#15803d', 
+                        backgroundColor: 'rgba(21, 128, 61, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#15803d',
+                        tension: 0.1, fill: true,
+                        maintainAspectRatio: false
+                    }]
+                },
+                options: {
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: '#e5e7eb' } }, 
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            const btnCommodity = document.getElementById('btn-commodity');
+            const btnState = document.getElementById('btn-state');
+            const primaryTitle = document.getElementById('primary-title');
+            const traderContext = document.getElementById('trader-context');
+            
+            const chartWrapper = document.getElementById('chart-wrapper');
+            const mapContainer = document.getElementById('mainMap');
+            const trendIndicator = document.getElementById('trend-indicator');
+
+            renderLocationTree(); 
+
+            btnState.addEventListener('click', () => {
+                btnState.classList.replace('text-gray-600', 'text-green-800');
+                btnState.classList.add('bg-white', 'shadow', 'font-bold');
+                
+                btnCommodity.classList.replace('text-green-800', 'text-gray-600');
+                btnCommodity.classList.remove('bg-white', 'shadow', 'font-bold');
+
+                primaryTitle.textContent = 'Maharashtra';
+                primarySubtitle.textContent = 'State View - Showing all Commodities';
+                traderContext.textContent = 'Maharashtra Region';
+                
+                sidebarTitle.textContent = "Select Commodity";
+                renderFlatList(listCommodities);
+
+                trendIndicator.classList.add('hidden');
+                chartWrapper.classList.add('hidden');
+                chartWrapper.classList.remove('z-10');
+                
+                mapContainer.classList.remove('hidden');
+                mapContainer.classList.add('z-10');
+                
+                setTimeout(() => { map.invalidateSize(); }, 100); 
+            });
+
+            btnCommodity.addEventListener('click', () => {
+                btnCommodity.classList.replace('text-gray-600', 'text-green-800');
+                btnCommodity.classList.add('bg-white', 'shadow', 'font-bold');
+                
+                btnState.classList.replace('text-green-800', 'text-gray-600');
+                btnState.classList.remove('bg-white', 'shadow', 'font-bold');
+
+                primaryTitle.textContent = 'Shevanti (Flower)';
+                primarySubtitle.textContent = 'Commodity View - Showing All Markets';
+                traderContext.textContent = 'Shevanti';
+                
+                sidebarTitle.textContent = "Select Location";
+                renderLocationTree();
+
+                trendIndicator.classList.remove('hidden');
+                mapContainer.classList.add('hidden');
+                mapContainer.classList.remove('z-10');
+                
+                chartWrapper.classList.remove('hidden');
+                chartWrapper.classList.add('z-10');
+                
+                setTimeout(() => { priceChart.resize(); }, 50); 
+            });
+
+            const map = L.map('mainMap').setView([19.7515, 75.7139], 6);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
+
+            const marketData = [
+                { lat: 18.5204, lng: 73.8567, price: 650, name: "Pune" },
+                { lat: 20.0110, lng: 73.7903, price: 580, name: "Nashik" },
+                { lat: 21.1458, lng: 79.0882, price: 420, name: "Nagpur" }
+            ];
+
+            marketData.forEach(market => {
+                const nodeRadius = (market.price - 300) * 100; 
+                L.circle([market.lat, market.lng], {
+                    color: '#15803d', fillColor: '#22c55e', fillOpacity: 0.8, radius: nodeRadius
+                }).bindPopup(`<b>${market.name}</b><br/>₹${market.price}`).addTo(map);
+            });
+
+            const rightPanel = document.getElementById('right-panel');
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const restoreBtn = document.getElementById('restore-panel-btn');
+
+            minimizeBtn.addEventListener('click', () => {
+                rightPanel.classList.add('hidden');
+                restoreBtn.classList.remove('hidden');
+                setTimeout(() => { priceChart.resize(); }, 150); 
+            });
+
+            restoreBtn.addEventListener('click', () => {
+                rightPanel.classList.remove('hidden');
+                restoreBtn.classList.add('hidden');
+                setTimeout(() => { priceChart.resize(); }, 150); 
+            });
+        });
+    </script>
+</body>
+</html>
